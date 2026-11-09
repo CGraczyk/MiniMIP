@@ -20,12 +20,12 @@
 #include <vector>
 
 #include "absl/status/status.h"
-#include "solver_context_interface.h"
-#include "minimip/cutting_interface/runner_factory.h"
 #include "minimip/branching_interface/branching_factory.h"
+#include "minimip/cutting_interface/runner_factory.h"
 #include "minimip/lp_interface/lpi_factory.h"
 #include "minimip/parameters.pb.h"
 #include "minimip/parameters_factory.h"
+#include "solver_context_interface.h"
 
 namespace minimip {
 
@@ -58,13 +58,14 @@ class Solver : public SolverContextInterface {
     ASSIGN_OR_RETURN(std::unique_ptr<CutRunnerInterface> cut_runner,
                      CreateCutRunner(params.cut_runner()));
 
-    ASSIGN_OR_RETURN(std::unique_ptr<BranchingRuleInterface> branching_interface,
-                     CreateBranchingRule(params.branching_parameters()));
+    ASSIGN_OR_RETURN(
+        std::unique_ptr<BranchingRuleInterface> branching_interface,
+        CreateBranchingRule(params.branching_parameters()));
 
     auto solver = std::unique_ptr<Solver>(new Solver(
         params, std::move(mip_data), std::move(result), std::move(mip_tree),
-        std::move(cut_registry), std::move(cut_runner), std::move(branching_interface),
-        std::move(lpi)));
+        std::move(cut_registry), std::move(cut_runner),
+        std::move(branching_interface), std::move(lpi)));
 
     // Populate LP with initial problem data
     CHECK_OK(solver->mutable_lpi()->PopulateFromMipData(solver->mip_data_));

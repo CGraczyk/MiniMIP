@@ -15,8 +15,8 @@
 #ifndef MINIMIP_SOLVER_CONTEXT_INTERFACE_H_
 #define MINIMIP_SOLVER_CONTEXT_INTERFACE_H_
 
-#include "minimip/cutting_interface/cuts_runner.h"
 #include "minimip/branching_interface/branching_interface.h"
+#include "minimip/cutting_interface/cuts_runner.h"
 #include "minimip/data_structures/cuts_data.h"
 #include "minimip/data_structures/mip_data.h"
 #include "minimip/data_structures/mip_tree.h"
